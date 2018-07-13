@@ -1159,6 +1159,33 @@ int SetDirection(struct mpsse_context *mpsse, uint8_t direction)
                 	{
 				retval = MPSSE_OK;
 			}
+		} else {
+			mpsse->tris = direction;
+			retval = MPSSE_OK;
+ 		}
+	}
+
+	return retval;
+}
+
+/*
+ * Sets the input/output direction of all GPIOH pins. For use in MPSSE mode only.
+ *
+ * @mpsse     - MPSSE context pointer.
+ * @direction - Byte indicating input/output direction of each bit.  1 is out.
+ *
+ * Returns MPSSE_OK if direction could be set, MPSSE_FAIL otherwise.
+ */
+int SetDirectionH(struct mpsse_context *mpsse, uint8_t direction)
+{
+	int retval = MPSSE_FAIL;
+
+	if(is_valid_context(mpsse))
+	{
+		if(mpsse->mode != BITBANG)
+		{
+			mpsse->trish = direction;
+			retval = MPSSE_OK;
 		}
 	}
 
@@ -1211,7 +1238,7 @@ int ReadPins(struct mpsse_context *mpsse)
 }
 
 /*
- * Checks if a specific pin is high or low. For use in BITBANG mode only.
+ * Checks if a specific pin is high or low.
  *
  * @mpsse - MPSSE context pointer.
  * @pin   - The pin number.
