@@ -348,6 +348,20 @@ class MPSSE(object):
 		if _mpsse.SetDirection(self.context, direction) == MPSSE_FAIL:
 			raise Exception, self.ErrorString()
 		return MPSSE_OK
+	
+	def SetDirectionH(self, direction):
+		"""
+		Sets the input/output direction of GPIO high pins as determined by direction (1 = Output, 0 = Input). 
+		For use in MPSSE mode only.
+
+		@direction -  Byte indicating input/output direction of each bit (1 is output, 0 is input). 
+
+		Returns MPSSE_OK on success.
+		Raises an exception on failure.
+		"""
+		if _mpsse.SetDirectionH(self.context, direction) == MPSSE_FAIL:
+			raise Exception, self.ErrorString()
+		return MPSSE_OK
 
 	def WriteBits(self, bits, n):
 		"""
