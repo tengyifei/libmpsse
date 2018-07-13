@@ -35,7 +35,7 @@
 #define LOW			0
 #define HIGH			1
 #define NUM_GPIOL_PINS		4
-#define NUM_GPIO_PINS		12
+#define NUM_GPIO_PINS		16
 
 #define NULL_CONTEXT_ERROR_MSG	"NULL MPSSE context pointer!"
 
@@ -197,6 +197,7 @@ void FlushAfterRead(struct mpsse_context *mpsse, int tf);
 int PinHigh(struct mpsse_context *mpsse, int pin);
 int PinLow(struct mpsse_context *mpsse, int pin);
 int SetDirection(struct mpsse_context *mpsse, uint8_t direction);
+int SetDirectionH(struct mpsse_context *mpsse, uint8_t direction);
 int WriteBits(struct mpsse_context *mpsse, char bits, int size);
 char ReadBits(struct mpsse_context *mpsse, int size);
 int WritePins(struct mpsse_context *mpsse, uint8_t data);
