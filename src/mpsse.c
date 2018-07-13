@@ -1232,6 +1232,11 @@ int ReadPins(struct mpsse_context *mpsse)
 	if(is_valid_context(mpsse))
 	{
 		ftdi_read_pins((struct ftdi_context *) &mpsse->ftdi, (unsigned char *) &val);
+		
+		if(mpsse->mode != BITBANG)
+		{
+			get_bits_high(mpsse, &mpsse->gpioh);
+		}
 	}
 
 	return (int) val;
@@ -1257,7 +1262,16 @@ int PinState(struct mpsse_context *mpsse, int pin, int state)
 	/* If not in bitbang mode, the specified pin should be one of GPIOLx. Convert these defines into an absolute pin number. */
 	if(mpsse->mode != BITBANG)
 	{
-		pin += NUM_GPIOL_PINS;
+		if(pin < NUM_GPIOL_PINS)
+		{
+			pin += NUM_GPIOL_PINS;
+			return ((state & (1 << pin)) >> pin);
+		}
+		else
+		{
+			pin -= NUM_GPIOL_PINS;
+			return ((mpsse->gpioh & (1 << pin)) >> pin);
+		}
 	}
 
 	return ((state & (1 << pin)) >> pin);
