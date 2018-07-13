@@ -233,7 +233,7 @@ int set_bits_high(struct mpsse_context *mpsse, int port)
 int get_bits_high(struct mpsse_context *mpsse, unsigned char *port)
 {
 	char buf[CMD_SIZE] = { 0 };
-	buf[0] = READ_BITS_HIGH;
+	buf[0] = GET_BITS_HIGH;
 	raw_write(mpsse, (unsigned char *) &buf, 1);
 	return raw_read(mpsse, port, 1);
 }
